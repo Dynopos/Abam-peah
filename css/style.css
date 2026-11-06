@@ -465,3 +465,16 @@ body.lock{overflow:hidden}
   .js .reveal{opacity:1;transform:none}
 }
 .nav-btn[hidden]{display:none}
+
+/* Penilaian Google & koordinat */
+.stars{color:var(--gold-hi)}
+.rating{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 4px;padding:10px 14px;border-radius:999px;border:1px solid var(--line-gold);background:rgba(212,173,95,.08);transition:background .3s}
+.rating:hover{background:rgba(212,173,95,.16)}
+.rating__stars{color:var(--gold-hi);letter-spacing:2px;font-size:15px}
+.rating__stars span{background:linear-gradient(90deg,var(--gold-hi) 50%,rgba(201,211,223,.35) 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rating b{font:700 20px/1 var(--f-head);color:var(--gold-hi)}
+.rating > span:last-child{color:var(--silver);font-size:12.5px}
+.coords{font-size:13px;color:var(--muted)!important;font-variant-numeric:tabular-nums}
+.coords span{color:var(--silver-hi);font-weight:700}
+.copy{margin-left:6px;padding:4px 10px;border-radius:8px;border:1px solid var(--line);font-size:11.5px;font-weight:700;color:var(--gold-hi)}
+.copy:hover{border-color:var(--line-gold)}

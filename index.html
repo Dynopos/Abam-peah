@@ -33,7 +33,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap">
 <link rel="preload" as="image" href="assets/img/sungai-malam-960.webp" imagesrcset="assets/img/sungai-malam-480.webp 480w, assets/img/sungai-malam-960.webp 960w, assets/img/sungai-malam-1600.webp 1600w" imagesizes="(min-width: 1024px) 60vw, 100vw">
-<link rel="stylesheet" href="css/style.css?v=20261106-1">
+<link rel="stylesheet" href="css/style.css?v=20261106-2">
 
 <script type="application/ld+json">
 {
@@ -58,6 +58,8 @@
         "addressRegion": "Kelantan",
         "addressCountry": "MY"
       },
+      "geo": {"@type": "GeoCoordinates", "latitude": 5.4984042, "longitude": 102.3042285},
+      "hasMap": "https://www.google.com/maps/search/?api=1&query=5.4984042,102.3042285",
       "priceRange": "RM5 – RM330",
       "currenciesAccepted": "MYR",
       "amenityFeature": [
@@ -90,7 +92,7 @@
         {"@type": "Question", "name": "Berapakah harga penginapan?", "acceptedAnswer": {"@type": "Answer", "text": "Pondok Haji Bakhil RM100, Pondok Atas Jambatan RM130, Pondok Ajis RM160, Pondok Sudin RM160, Glamping Kak Peah RM200, Pondok Abam Peah RM300 dan Pondok P. Ramlee RM330 semalam."}},
         {"@type": "Question", "name": "Berapakah caj tapak perkhemahan?", "acceptedAnswer": {"@type": "Answer", "text": "RM10 seorang untuk dewasa (18 tahun ke atas), RM5 seorang untuk kanak-kanak 11 hingga 17 tahun dan percuma untuk kanak-kanak 10 tahun ke bawah. Sewa khemah RM30 sehari."}},
         {"@type": "Question", "name": "Bolehkah saya buat program berkumpulan di sini?", "acceptedAnswer": {"@type": "Answer", "text": "Boleh. Teratak Rimba Abam Peah sesuai untuk seminar, kursus, team building, perkhemahan, program sekolah, family day dan program korporat. Hubungi kami melalui WhatsApp untuk susunan program."}},
-        {"@type": "Question", "name": "Di manakah lokasi Teratak Rimba Abam Peah?", "acceptedAnswer": {"@type": "Answer", "text": "Teratak Rimba Abam Peah terletak di Kuala Krai, Kelantan, dalam suasana hutan rimba di tepi sungai."}}
+        {"@type": "Question", "name": "Di manakah lokasi Teratak Rimba Abam Peah?", "acceptedAnswer": {"@type": "Answer", "text": "Teratak Rimba Abam Peah terletak di Kuala Krai, Kelantan, dalam suasana hutan rimba di tepi sungai. Koordinat GPS: 5.4984042, 102.3042285. Cari Teratak Rimba Abam Peah di Google Maps atau Waze."}}
       ]
     }
   ]
@@ -182,7 +184,7 @@
 
     <a class="tile tile--loc reveal" style="--d:.26s" href="#lokasi">
       <svg class="ico ico--xl" aria-hidden="true"><use href="#i-pin"/></svg>
-      <div><span class="eyebrow">Lokasi</span><strong>Kuala Krai, Kelantan</strong><small>Hutan rimba · tepi sungai</small></div>
+      <div><span class="eyebrow">Lokasi</span><strong>Kuala Krai, Kelantan</strong><small><span class="stars" aria-hidden="true">★</span> 4.5 · 107 ulasan Google</small></div>
       <span class="arrow" aria-hidden="true">→</span>
     </a>
   </div>
@@ -547,14 +549,18 @@
       <span class="eyebrow">Location</span>
       <h2 id="lok-h">Kuala Krai, Kelantan</h2>
       <p>Teratak Rimba Abam Peah terletak dalam suasana hutan rimba di tepi sungai, Kuala Krai, Kelantan — jauh dari hiruk-pikuk bandar.</p>
-      <p>Minta lokasi tepat (pin Google Maps / Waze) semasa membuat tempahan melalui WhatsApp.</p>
+      <a class="rating" href="https://www.google.com/maps/search/?api=1&amp;query=5.4984042,102.3042285" target="_blank" rel="noopener" aria-label="Penilaian Google 4.5 daripada 5, 107 ulasan">
+        <span class="rating__stars" aria-hidden="true">★★★★<span>★</span></span><b>4.5</b><span>107 ulasan di Google Maps</span>
+      </a>
+      <p class="coords">GPS: <span id="coords">5.4984042, 102.3042285</span> <button type="button" class="copy" id="copyCoords">Salin</button></p>
       <div class="hero__actions">
-        <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="lokasi"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Minta Lokasi</a>
-        <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Teratak+Rimba+Abam+Peah+Kuala+Krai+Kelantan" target="_blank" rel="noopener">Buka Google Maps ↗</a>
+        <a class="btn btn--gold" href="https://www.google.com/maps/dir/?api=1&amp;destination=5.4984042,102.3042285" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg> Google Maps</a>
+        <a class="btn btn--ghost" href="https://waze.com/ul?ll=5.4984042,102.3042285&amp;navigate=yes" target="_blank" rel="noopener">Waze ↗</a>
+        <a class="btn btn--line" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="lokasi"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Tanya Arah</a>
       </div>
     </div>
     <div class="loc__map reveal" style="--d:.08s">
-      <iframe title="Peta lokasi Teratak Rimba Abam Peah, Kuala Krai, Kelantan" data-src="https://www.google.com/maps?q=Teratak+Rimba+Abam+Peah+Kuala+Krai+Kelantan&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe title="Peta lokasi Teratak Rimba Abam Peah, Kuala Krai, Kelantan" data-src="https://www.google.com/maps?q=5.4984042,102.3042285&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
 </section>
@@ -568,7 +574,7 @@
     <details><summary>Berapakah caj tapak perkhemahan?</summary><p>Dewasa (18 tahun ke atas) RM10 seorang, kanak-kanak 11–17 tahun RM5 seorang, dan kanak-kanak 10 tahun ke bawah <strong>percuma</strong>. Sewa khemah RM30 sehari.</p></details>
     <details><summary>Pondok mana sesuai untuk keluarga besar?</summary><p>Pondok P. Ramlee (2 tingkat, 2 bilik) boleh memuatkan sehingga 10 orang. Untuk kumpulan lebih besar, gabungkan beberapa pondok atau tapak perkhemahan — tanya kami melalui WhatsApp.</p></details>
     <details><summary>Boleh buat program berkumpulan?</summary><p>Boleh. Kami menerima seminar, kursus, team building, camping, program sekolah, family day dan program korporat (jabatan &amp; syarikat).</p></details>
-    <details><summary>Di mana lokasi resort?</summary><p>Kuala Krai, Kelantan. Pin lokasi tepat akan diberikan semasa tempahan melalui WhatsApp.</p></details>
+    <details><summary>Di mana lokasi resort?</summary><p>Kuala Krai, Kelantan. Koordinat GPS: <strong>5.4984042, 102.3042285</strong> — tekan butang Google Maps atau Waze di bahagian Lokasi untuk arah terus.</p></details>
   </div>
 </section>
 
@@ -659,6 +665,6 @@
   <symbol id="i-drop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M12 3s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12Z"/></symbol>
 </svg>
 
-<script src="js/main.js?v=20261106-2" defer></script>
+<script src="js/main.js?v=20261106-3" defer></script>
 </body>
 </html>

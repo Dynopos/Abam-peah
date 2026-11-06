@@ -63,12 +63,12 @@ const BOOKING_URL = 'https://hi.jomwasap.my/naksewateratak';
     glamping:   { poster: 'poster-glamping',   photos: ['glamping-luar', 'glamping-dalam', 'glamping-katil', 'glamping-tapak'] },
     ajis:       { poster: 'poster-ajis',       photos: ['ajis-luar', 'ajis-depan', 'ajis-bilik', 'ajis-beranda', 'ajis-bilikair'] },
     sudin:      { poster: 'poster-sudin',      photos: ['sudin-luar', 'sudin-sisi', 'sudin-bilik', 'sudin-beranda', 'sudin-bilikair'] },
-    jambatan:   { poster: 'poster-jambatan',   photos: ['jambatan-luar', 'jambatan-sisi', 'jambatan-bilik', 'jambatan-bilik2'] },
+    jambatan:   { poster: 'poster-jambatan',   photos: ['jambatan-luar', 'jambatan-sisi', 'jambatan-bilik', 'jambatan-bilik2'], extra: ['jambatan-sungai', 'jambatan-laluan'] },
     hajibakhil: { poster: 'poster-hajibakhil', photos: ['hajibakhil-luar', 'hajibakhil-depan', 'hajibakhil-bilik', 'hajibakhil-bilik2'] },
     camping:    { poster: 'poster-camping',    photos: ['camping-tapak', 'camping-dewan-luar', 'camping-dewan2', 'camping-dewan'], extra: ['khemah-tapak', 'khemah-pasang'] }
   };
   /* Gambar sebenar (bukan potongan poster) hanya ada saiz 480/960 */
-  const REAL = new Set(['ramlee-tepi', 'abampeah-tepi', 'khemah-tapak', 'khemah-pasang', 'sungai-malam', 'sungai-siang', 'sungai-kanak', 'family-day', 'gerai']);
+  const REAL = new Set(['ramlee-tepi', 'abampeah-tepi', 'khemah-tapak', 'khemah-pasang', 'sungai-malam', 'sungai-siang', 'sungai-kanak', 'family-day', 'gerai', 'jambatan-sungai', 'jambatan-laluan']);
   const big = n => IMG + n + (REAL.has(n) ? '-960.webp' : '-800.webp');
   const small = n => IMG + n + (REAL.has(n) ? '-480.webp' : '-400.webp');
 
@@ -155,7 +155,7 @@ const BOOKING_URL = 'https://hi.jomwasap.my/naksewateratak';
     ['abampeah-tepi', 'Pondok Abam Peah'],
     ['family-day', 'Family Day'],
     ['ajis-luar', 'Pondok Ajis'],
-    ['jambatan-luar', 'Pondok Atas Jambatan'],
+    ['jambatan-sungai', 'Pondok Atas Jambatan di tepi sungai'],
     ['khemah-pasang', 'Pasang khemah'],
     ['sudin-luar', 'Pondok Sudin'],
     ['abampeah-anjung', 'Anjung Pondok Abam Peah'],
@@ -169,6 +169,7 @@ const BOOKING_URL = 'https://hi.jomwasap.my/naksewateratak';
     ['gerai', 'Sudut gerai jualan'],
     ['abampeah-bilik', 'Bilik Pondok Abam Peah'],
     ['camping-tapak', 'Tapak khemah berlantai simen'],
+    ['jambatan-laluan', 'Laluan kayu ke Pondok Atas Jambatan'],
     ['sudin-bilik', 'Bilik Pondok Sudin']
   ];
   const gal = $('#gallery');
@@ -208,6 +209,15 @@ const BOOKING_URL = 'https://hi.jomwasap.my/naksewateratak';
       mo.observe(map);
     } else load();
   }
+
+  /* ---------- Salin koordinat GPS ---------- */
+  const cp = $('#copyCoords');
+  if (cp) cp.addEventListener('click', () => {
+    const t = $('#coords').textContent;
+    const done = () => { cp.textContent = 'Disalin ✓'; setTimeout(() => { cp.textContent = 'Salin'; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, () => prompt('Salin koordinat:', t));
+    else prompt('Salin koordinat:', t);
+  });
 
   /* ---------- Video: jeda bila keluar skrin ---------- */
   const vid = $('#resortVideo');

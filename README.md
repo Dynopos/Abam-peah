@@ -18,7 +18,7 @@ Semua butang **Booking Now / WhatsApp** menuju ke: <https://hi.jomwasap.my/nakse
 | Kemudahan | Tepi sungai, Dewan BBQ, tandas berasingan, sewa khemah, sudut gerai jualan |
 | Video | Video resort (dimampatkan, `preload="none"`) |
 | Galeri | 22 gambar sebenar + lightbox (anak panah, leret, papan kekunci) |
-| Lokasi | Kuala Krai, Kelantan + peta Google (dimuat bila hampir kelihatan) |
+| Lokasi | Kuala Krai, Kelantan, GPS 5.4984042, 102.3042285: peta Google, butang Google Maps / Waze / WhatsApp, penilaian Google 4.5★ (107 ulasan) |
 | Soalan Lazim | 6 soalan (juga dalam data berstruktur FAQPage untuk Google) |
 | Butang terapung | WhatsApp di penjuru kanan bawah, butang "ke atas" di kiri |
 
@@ -64,6 +64,7 @@ robots.txt, sitemap.xml, llms.txt, netlify.toml, .nojekyll
 - **Voice note:** ganti `assets/audio/voice-note.ogg` dan `voice-note.m4a` (nama sama). Kemas kini
   `data-duration="45"` pada `<audio id="vnAudio">` (tempoh dalam saat). Voice note dimainkan bila pelawat
   menekan butang main (pelayar tidak membenarkan audio auto-main tanpa sentuhan pengguna).
+- **Lokasi & penilaian:** koordinat dan teks "4.5 · 107 ulasan" ada dalam `index.html` (hero dan bahagian Lokasi). Kemas kini bilangan ulasan sekali-sekala.
 - **Cache pelayar:** pautan CSS/JS dalam `index.html` ada nombor versi (`style.css?v=20261106-1`).
   Naikkan nombor itu setiap kali `css/style.css` atau `js/main.js` diubah.
 - **Domain:** URL kanonik, Open Graph, `robots.txt` dan `sitemap.xml` menggunakan
