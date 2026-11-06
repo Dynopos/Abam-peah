@@ -19,7 +19,8 @@ Semua butang **Booking Now / WhatsApp** menuju ke: <https://hi.jomwasap.my/nakse
 | Video | Video resort (dimampatkan, `preload="none"`) |
 | Galeri | 22 gambar sebenar + lightbox (anak panah, leret, papan kekunci) |
 | Lokasi | Kuala Krai, Kelantan, GPS 5.4984042, 102.3042285: peta Google, butang Google Maps / Waze / WhatsApp, penilaian Google 4.5★ (107 ulasan) |
-| Soalan Lazim | 6 soalan (juga dalam data berstruktur FAQPage untuk Google) |
+| Tentang & Fakta Ringkas | Ringkasan resort + jadual fakta (untuk pelawat, Google dan enjin AI) |
+| Soalan Lazim | 11 soalan (juga dalam data berstruktur FAQPage untuk Google) |
 | Butang terapung | WhatsApp di penjuru kanan bawah, butang "ke atas" di kiri |
 
 ### Harga pakej
@@ -69,6 +70,25 @@ robots.txt, sitemap.xml, llms.txt, netlify.toml, .nojekyll
   Naikkan nombor itu setiap kali `css/style.css` atau `js/main.js` diubah.
 - **Domain:** URL kanonik, Open Graph, `robots.txt` dan `sitemap.xml` menggunakan
   `https://dynopos.github.io/Abam-peah/`. Jika guna domain sendiri, cari & ganti alamat ini.
+
+## SEO & GEO
+
+- **SEO (Google):** tajuk & meta description berkata kunci, H1 dengan nama + lokasi, canonical, hreflang,
+  Open Graph/Twitter, data berstruktur JSON-LD (`WebSite`, `WebPage`, `LodgingBusiness`/`Campground` dengan
+  setiap pondok sebagai `Accommodation` + harga `Offer`, `FAQPage`, `VideoObject`), `sitemap.xml` (termasuk
+  gambar & video), fon dimuat tanpa menyekat paparan.
+- **GEO (enjin AI: ChatGPT, Gemini, Perplexity, Claude):** bahagian *Tentang & Fakta Ringkas* (`#tentang`),
+  11 soalan lazim berbentuk soal-jawab, `llms.txt` lengkap, `robots.txt` membenarkan semua perayap AI,
+  tarikh "Dikemas kini" untuk kesegaran maklumat.
+- **Geo-tag lokasi:** `geo.region` (MY-03 Kelantan), `geo.position`, `ICBM`, `GeoCoordinates` 5.4984042, 102.3042285.
+- **Bila harga / fasiliti berubah:** kemas kini kad pakej, soalan lazim (HTML **dan** JSON-LD `FAQPage`),
+  bahagian Fakta Ringkas, `llms.txt`, dan tarikh `dateModified` / "Dikemas kini".
+
+### Selepas laman diterbitkan
+1. Daftar laman di **Google Search Console** → hantar `sitemap.xml`.
+2. Daftar di **Bing Webmaster Tools** (Bing juga digunakan oleh ChatGPT & Copilot).
+3. Letak pautan laman web ini dalam **Google Business Profile** "Teratak Rimba Abam Peah".
+4. Pastikan nama, lokasi dan pautan WhatsApp sama di Facebook, TikTok, Instagram dan direktori pelancongan.
 
 ## Deploy ke GitHub Pages
 

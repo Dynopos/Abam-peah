@@ -478,3 +478,50 @@ body.lock{overflow:hidden}
 .coords span{color:var(--silver-hi);font-weight:700}
 .copy{margin-left:6px;padding:4px 10px;border-radius:8px;border:1px solid var(--line);font-size:11.5px;font-weight:700;color:var(--gold-hi)}
 .copy:hover{border-color:var(--line-gold)}
+
+/* H1 kicker (nama + lokasi untuk SEO) */
+.h1-kicker{display:block;margin-bottom:12px;font:600 clamp(11px,1.2vw,13px)/1.4 var(--f-body);letter-spacing:.06em;color:var(--silver);text-shadow:none}
+
+/* Tentang + fakta ringkas */
+.about{display:grid;gap:14px}
+.about__txt{padding:26px 20px;border-radius:var(--r-xl);border:1px solid var(--line);background:var(--g-card)}
+.about__txt p{color:var(--silver)}
+.about__lead{font-size:16.5px;color:var(--silver-hi)!important}
+.about__lead strong{color:var(--gold-hi)}
+.about__txt .btn{margin-top:8px}
+.facts{margin:0;display:grid;border-radius:var(--r-xl);border:1px solid var(--line-gold);overflow:hidden;background:linear-gradient(150deg,#10294a,#06162c)}
+.facts div{display:grid;grid-template-columns:minmax(110px,38%) 1fr;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.facts div:last-child{border-bottom:0}
+.facts div:nth-child(odd){background:rgba(5,16,32,.35)}
+.facts dt{font:600 10.5px/1.5 var(--f-caps);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.facts dd{margin:0;font-size:13.5px;color:var(--silver-hi)}
+.facts a{color:var(--gold-hi);text-decoration:underline;text-underline-offset:3px}
+.faq a{color:var(--gold-hi);text-decoration:underline;text-underline-offset:3px}
+@media (min-width:1024px){
+  .about{grid-template-columns:1fr 1fr}
+  .about__txt{padding:44px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+}
+
+/* Telefon: kotak statistik & gambar penuh lebar supaya teks tidak terpotong */
+.stat{min-width:0}
+.stat span{overflow-wrap:break-word}
+@media (max-width:699px){
+  .tile--photo{grid-column:1/-1;min-height:240px}
+  .tile--stats{grid-column:1/-1}
+  .stat{padding:16px 18px}
+  .stat b{font-size:30px}
+  .stat span{font-size:12px}
+}
+
+/* Elak teks terkeluar / terpotong pada skrin kecil & saiz teks besar */
+.hero__grid>*,.pkgs>*,.acts>*,.facs>*,.media>*,.loc>*,.about>*,.steps>*,.foot__in>*{min-width:0}
+.about,.media,.loc{grid-template-columns:minmax(0,1fr)}
+.facts{grid-template-columns:minmax(0,1fr)}
+.facts dd,.facts dt,.pkg h3,.act h3,.head h2,.lead,.sub{overflow-wrap:break-word}
+.btn{white-space:normal;text-align:center}
+@media (max-width:479px){
+  .facts div{grid-template-columns:minmax(0,1fr);gap:3px;padding:12px 16px}
+}
+.faq{grid-template-columns:minmax(0,1fr)}
+.faq a,.facts a,.coords span{overflow-wrap:anywhere}
+.faq summary,.faq p{overflow-wrap:break-word}
