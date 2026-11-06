@@ -166,7 +166,7 @@ const BOOKING_URL = 'https://hi.jomwasap.my/naksewateratak';
     ['camping-dewan2', 'Dewan BBQ'],
     ['khemah-tapak', 'Tapak perkhemahan'],
     ['jambatan-bilik', 'Bilik Pondok Atas Jambatan'],
-    ['gerai', 'Sudut gerai'],
+    ['gerai', 'Sudut gerai jualan'],
     ['abampeah-bilik', 'Bilik Pondok Abam Peah'],
     ['camping-tapak', 'Tapak khemah berlantai simen'],
     ['sudin-bilik', 'Bilik Pondok Sudin']

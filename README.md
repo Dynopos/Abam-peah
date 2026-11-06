@@ -15,7 +15,7 @@ Semua butang **Booking Now / WhatsApp** menuju ke: <https://hi.jomwasap.my/nakse
 | Pakej | 8 kad bento dengan gambar, harga, fasiliti, **BOOKING NOW** dan "Lihat Gambar" (modal galeri setiap pakej + poster harga asal). Penapis: Semua / Pondok / Glamping / Camping |
 | Cara Tempah | 3 langkah ke WhatsApp |
 | Aktiviti | Seminar, Kursus, Team Building, Camping, Program Sekolah, Family Day, Program Korporat |
-| Kemudahan | Tepi sungai, Dewan BBQ, tandas berasingan, sewa khemah, sudut gerai |
+| Kemudahan | Tepi sungai, Dewan BBQ, tandas berasingan, sewa khemah, sudut gerai jualan |
 | Video | Video resort (dimampatkan, `preload="none"`) |
 | Galeri | 22 gambar sebenar + lightbox (anak panah, leret, papan kekunci) |
 | Lokasi | Kuala Krai, Kelantan + peta Google (dimuat bila hampir kelihatan) |
