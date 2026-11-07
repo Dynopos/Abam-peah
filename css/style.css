@@ -579,3 +579,5 @@ body.lock{overflow:hidden}
   .book__set{padding:26px}
   .book__sum{position:sticky;top:calc(var(--nav-h) + 16px);padding:30px}
 }
+.pkg__onsite{display:flex;align-items:center;justify-content:center;gap:7px;margin:2px 0 0;font-size:12.5px;font-weight:700;color:var(--silver)}
+.pkg__onsite .ico{width:15px;height:15px;color:var(--gold)}

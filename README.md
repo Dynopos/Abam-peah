@@ -75,7 +75,7 @@ robots.txt, sitemap.xml, llms.txt, netlify.toml, .nojekyll
 
 ## Bayaran Online (Bayarcash FPX)
 
-Borang **Tempah & Bayar Online** (`#tempah`) membolehkan pelanggan memilih pakej, tarikh, bilangan malam / unit / tetamu
+Borang **Tempah & Bayar Online** (`#tempah`) — untuk **pondok & glamping** — membolehkan pelanggan memilih pakej, tarikh, bilangan malam / unit / tetamu
 dan sewa khemah, kemudian membuat **bayaran penuh** melalui FPX (Bayarcash v3).
 
 ### Cara ia berfungsi
@@ -124,8 +124,10 @@ Tanpa kunci (atau di GitHub Pages), borang secara automatik bertukar kepada buta
 Ubah `js/pricing.mjs` **dan** kad pakej / FAQ / JSON-LD dalam `index.html`, kemudian naikkan nombor versi `?v=` bagi
 `js/booking.js` dan import `pricing.mjs` di dalamnya.
 
-> **Perlu disahkan pemilik sebelum production:** caj tapak perkhemahan dan sewa khemah dikira **semalam**;
-> kandungan Polisi Pembatalan dalam `terma.html` ialah draf.
+> **Tapak Perkhemahan tidak dibayar online** — bayaran manual di tapak (`online: false` dalam `js/pricing.mjs`);
+> kad camping memaparkan "Bayaran di tapak" dan tempahan slot melalui WhatsApp. Pelayan menolak bayaran online untuk camping.
+>
+> **Perlu disahkan pemilik sebelum production:** kandungan Polisi Pembatalan dalam `terma.html` ialah draf.
 
 ## SEO & GEO
 

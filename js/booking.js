@@ -1,5 +1,5 @@
 /* Teratak Rimba Abam Peah — borang Tempah & Bayar Online (Bayarcash FPX) */
-import { PAKEJ, quote, todayMY, addDays, MAX_NIGHTS } from './pricing.mjs?v=20261107-2';
+import { PAKEJ, quote, todayMY, addDays, MAX_NIGHTS } from './pricing.mjs?v=20261107-3';
 
 const WA = 'https://hi.jomwasap.my/naksewateratak';
 const $ = s => document.querySelector(s);

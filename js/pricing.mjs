@@ -14,7 +14,8 @@ export const PAKEJ = {
   sudin:      { name: 'Pondok Sudin',         type: 'pondok',   price: 160, maxUnits: 1 },
   jambatan:   { name: 'Pondok Atas Jambatan', type: 'pondok',   price: 130, maxUnits: 4 },
   hajibakhil: { name: 'Pondok Haji Bakhil',   type: 'pondok',   price: 100, maxUnits: 1 },
-  camping:    { name: 'Tapak Perkhemahan',    type: 'camping',  adult: 10, teen: 5, child: 0, tents: true }
+  /* Camping: bayaran manual di tapak (tidak melalui payment gateway) */
+  camping:    { name: 'Tapak Perkhemahan',    type: 'camping',  adult: 10, teen: 5, child: 0, tents: true, online: false }
 };
 
 const int = (v, d = 0) => { const n = Number.parseInt(v, 10); return Number.isFinite(n) ? n : d; };
@@ -39,6 +40,7 @@ export function quote(input = {}, now = new Date()) {
   const id = String(input.pakej || '');
   const p = PAKEJ[id];
   if (!p) return { ok: false, errors: ['Sila pilih pakej.'], lines: [], total: 0 };
+  if (p.online === false) return { ok: false, offline: true, errors: [`${p.name} dibayar di tapak. Sila tempah melalui WhatsApp.`], pakej: id, name: p.name, lines: [], total: 0 };
 
   const checkin = String(input.checkin || '');
   const nights = int(input.nights, 1);
