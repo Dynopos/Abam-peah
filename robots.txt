@@ -3,6 +3,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /bayaran.html
+Disallow: /admin.html
 
 # Enjin carian AI / LLM (GEO)
 User-agent: GPTBot

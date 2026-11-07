@@ -96,6 +96,10 @@ dan sewa khemah, kemudian membuat **bayaran penuh** melalui FPX (Bayarcash v3).
 | `netlify/functions/payment-status.mjs` | Semak status transaksi |
 | `netlify/functions/config.mjs` | Beritahu borang sama ada bayaran online aktif |
 | `netlify/lib/bayarcash.mjs` | Checksum, panggilan API, no. tempahan |
+| `netlify/lib/slots.mjs` | Kekosongan: pegang / sahkan / lepaskan tarikh (Netlify Blobs) |
+| `netlify/functions/availability.mjs` | Kekosongan awam untuk kalendar borang |
+| `netlify/functions/admin.mjs` | API halaman admin (dilindungi `ADMIN_PASSWORD`) |
+| `admin.html` | Halaman admin kekosongan & senarai tempahan |
 | `bayaran.html` | Halaman keputusan bayaran |
 | `terma.html` | Terma, Polisi Pembatalan & Bayaran Balik, Polisi Privasi (PDPA) |
 
@@ -113,12 +117,30 @@ dan sewa khemah, kemudian membuat **bayaran penuh** melalui FPX (Bayarcash v3).
    | `BAYARCASH_PORTAL_KEY` | Portal Key |
    | `BAYARCASH_ENV` | `sandbox` (ujian) → tukar ke `production` bila sedia |
    | `BAYARCASH_CHANNEL` | *(pilihan)* `1` = FPX (lalai) |
+   | `ADMIN_PASSWORD` | Kata laluan halaman `/admin.html` (min. 8 aksara) |
 
 4. *Deploys → Trigger deploy*. Borang akan memaparkan "Mod ujian (sandbox)" sehingga `BAYARCASH_ENV=production`.
 5. **Netlify → Forms → Form notifications** → tambah emel pemilik untuk borang `tempahan` dan `bayaran`.
 6. Uji sekurang-kurangnya satu bayaran sandbox berjaya dan satu gagal sebelum tukar ke production.
 
 Tanpa kunci (atau di GitHub Pages), borang secara automatik bertukar kepada butang **Tempah melalui WhatsApp**.
+
+### Kalendar kekosongan & halaman admin
+
+- **Pelanggan** melihat kalendar dalam borang: tarikh penuh dipangkah merah; bagi Pondok Atas Jambatan, angka kecil
+  menunjukkan bilangan unit kosong. Butang bayar dimatikan jika tarikh penuh, dan pelayan menyemak semula.
+- **Semasa bayaran**, tarikh dipegang **30 minit** (penguncian atomik setiap unit & malam dalam Netlify Blobs —
+  dua pelanggan tidak boleh memegang unit sama). Bayaran **berjaya** → tarikh ditutup kekal; **gagal / batal**
+  atau tamat 30 minit → tarikh dibuka semula.
+- **Pemilik** buka `/admin.html` (kata laluan = `ADMIN_PASSWORD`):
+  - pilih unit (10 unit: 6 pondok, glamping, 4 Pondok Atas Jambatan — Do, Re, Mi, Sarip Dol);
+  - tekan tarikh kosong → **Tutup** (untuk tempahan WhatsApp / walk-in, dengan catatan);
+  - tekan tarikh merah → **Buka semula**; tekan tarikh emas → lihat butiran tempahan online;
+  - borang *Tutup / Buka Julat Tarikh* untuk banyak malam sekali;
+  - senarai **Tempahan Online Terkini** dengan status (Dibayar / Menunggu / Gagal / KONFLIK).
+- Tetapkan `ADMIN_PASSWORD` (sekurang-kurangnya 8 aksara, kata laluan kuat) di Netlify → Environment variables.
+- Data disimpan dalam Netlify → *Data & Storage → Blobs* → store `kekosongan`.
+- Tapak Perkhemahan tiada had unit dan tidak menggunakan kalendar.
 
 ### Menukar harga
 Ubah `js/pricing.mjs` **dan** kad pakej / FAQ / JSON-LD dalam `index.html`, kemudian naikkan nombor versi `?v=` bagi

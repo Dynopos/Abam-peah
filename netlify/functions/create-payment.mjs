@@ -1,6 +1,7 @@
 /* POST /api/create-payment — cipta payment intent Bayarcash v3 dan pulangkan URL bayaran.
    Jumlah SENTIASA dikira semula di pelayan daripada js/pricing.mjs. */
 import { quote } from '../../js/pricing.mjs';
+import { holdBooking, releaseBooking } from '../lib/slots.mjs';
 import { config as bc, isConfigured, api, intentChecksum, orderNumber, recordForm, siteUrl, json, normalisePhone } from '../lib/bayarcash.mjs';
 
 const clean = (v, max) => String(v ?? '').replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -28,6 +29,21 @@ export default async (req) => {
 
   const order = orderNumber();
   const base = siteUrl(req).replace(/\/$/, '');
+
+  /* Pegang tarikh (atomik) sebelum bayaran — tolak jika sudah ditempah */
+  let hold;
+  try {
+    hold = await holdBooking({
+      order, pakej: q.pakej, checkin: q.checkin, nights: q.nights, units: q.units || 1,
+      info: { nama: name, emel: email, telefon: phone, catatan: notes, jumlah: q.total.toFixed(2), tetamu: { dewasa: q.adults, remaja: q.teens, kanak: q.children }, khemah: q.tents, mod: c.mode }
+    });
+  } catch (e) {
+    console.error('holdBooking', e);
+    return json({ error: 'Kekosongan tidak dapat disemak sekarang. Sila cuba lagi atau tempah melalui WhatsApp.' }, 503);
+  }
+  if (!hold.ok) {
+    return json({ error: `Maaf, ${q.name} sudah ditempah pada sebahagian tarikh dipilih. Sila pilih tarikh lain.`, code: 'unavailable' }, 409);
+  }
   const payload = {
     payment_channel: c.channel,
     portal_key: c.portalKey,
@@ -44,12 +60,13 @@ export default async (req) => {
   const r = await api(c, '/payment-intents', { method: 'POST', body: payload });
   if (!r.ok || !r.data?.url) {
     console.error('Bayarcash payment-intent gagal', r.status, JSON.stringify(r.data).slice(0, 500));
+    await releaseBooking(order, 'intent-failed').catch(() => {});
     return json({ error: 'Maaf, sistem bayaran tidak dapat dihubungi. Sila cuba lagi atau tempah melalui WhatsApp.' }, 502);
   }
 
   await recordForm(base, 'tempahan', {
     status: 'MENUNGGU BAYARAN', order_number: order, payment_intent: r.data.id || '',
-    pakej: q.name, tarikh_masuk: q.checkin, tarikh_keluar: q.checkout, malam: q.nights, unit: q.units,
+    pakej: q.name, unit_fizikal: hold.units.join(', '), tarikh_masuk: q.checkin, tarikh_keluar: q.checkout, malam: q.nights, unit: q.units,
     dewasa: q.adults, remaja_11_17: q.teens, kanak_bawah_10: q.children, sewa_khemah: q.tents,
     jumlah_rm: q.total.toFixed(2), nama: name, emel: email, telefon: phone, catatan: notes, mod: c.mode
   });

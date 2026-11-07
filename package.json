@@ -1,0 +1,9 @@
+{
+  "name": "teratak-rimba-abam-peah",
+  "private": true,
+  "description": "Laman web Teratak Rimba Abam Peah Resort — laman statik + Netlify Functions (Bayarcash, kekosongan)",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.8"
+  }
+}

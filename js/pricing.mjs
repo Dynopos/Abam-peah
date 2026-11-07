@@ -83,3 +83,27 @@ export function quote(input = {}, now = new Date()) {
     lines, total
   };
 }
+
+/* ---------- Unit fizikal (untuk kalendar kekosongan) ----------
+   Setiap unit boleh ditempah satu tempahan semalam. Pondok Atas Jambatan ada 4 unit. */
+export const UNITS = {
+  ramlee: ['ramlee'],
+  abampeah: ['abampeah'],
+  glamping: ['glamping'],
+  ajis: ['ajis'],
+  sudin: ['sudin'],
+  jambatan: ['jambatan-do', 'jambatan-re', 'jambatan-mi', 'jambatan-saripdol'],
+  hajibakhil: ['hajibakhil']
+};
+export const UNIT_LABEL = {
+  ramlee: 'Pondok P. Ramlee', abampeah: 'Pondok Abam Peah', glamping: 'Glamping Kak Peah',
+  ajis: 'Pondok Ajis', sudin: 'Pondok Sudin', hajibakhil: 'Pondok Haji Bakhil',
+  'jambatan-do': 'Jambatan — Pondok Do', 'jambatan-re': 'Jambatan — Pondok Re',
+  'jambatan-mi': 'Jambatan — Pondok Mi', 'jambatan-saripdol': 'Jambatan — Pondok Sarip Dol'
+};
+export const ALL_UNITS = Object.values(UNITS).flat();
+
+/* Senarai tarikh malam yang diduduki: checkin .. checkout-1 */
+export function nightDates(checkin, nights) {
+  return Array.from({ length: nights }, (_, i) => addDays(checkin, i));
+}

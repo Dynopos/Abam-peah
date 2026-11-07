@@ -46,7 +46,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap"></noscript>
 <link rel="preload" as="image" href="assets/img/sungai-malam-960.webp" imagesrcset="assets/img/sungai-malam-480.webp 480w, assets/img/sungai-malam-960.webp 960w, assets/img/sungai-malam-1600.webp 1600w" imagesizes="(min-width: 1024px) 60vw, 100vw">
-<link rel="stylesheet" href="css/style.css?v=20261107-3">
+<link rel="stylesheet" href="css/style.css?v=20261107-4">
 
 <script type="application/ld+json">
 {
@@ -1181,6 +1181,15 @@
             <option value="hajibakhil">Pondok Haji Bakhil — RM100/malam</option>
           </select>
         </label>
+        <div class="cal fld--full" id="bkCal" hidden>
+          <div class="cal__head">
+            <button type="button" class="cal__nav" id="calPrev" aria-label="Bulan sebelumnya">‹</button>
+            <strong id="calMonth"></strong>
+            <button type="button" class="cal__nav" id="calNext" aria-label="Bulan seterusnya">›</button>
+          </div>
+          <div class="cal__grid" id="calGrid" role="grid" aria-label="Kalendar kekosongan"></div>
+          <div class="cal__legend"><span><i class="lg lg--free"></i>Kosong</span><span><i class="lg lg--full"></i>Penuh</span><span><i class="lg lg--sel"></i>Pilihan anda</span></div>
+        </div>
         <label class="fld">
           <span>Tarikh masuk</span>
           <input type="date" name="checkin" id="bkIn" required>
@@ -1246,6 +1255,7 @@
       <span class="eyebrow">Ringkasan</span>
       <h3 id="bkSumName">Pondok P. Ramlee</h3>
       <p class="book__dates" id="bkSumDates">Pilih tarikh masuk</p>
+      <p class="avail" id="bkAvail" hidden></p>
       <ul class="book__lines" id="bkLines"></ul>
       <div class="book__total"><span>Jumlah bayaran</span><strong id="bkTotal">RM0.00</strong></div>
       <label class="agree">
@@ -1261,7 +1271,7 @@
       <p class="book__mode" id="bkMode" hidden></p>
     </aside>
   </form>
-  <p class="note">* Tempahan tertakluk kepada kekosongan. Pihak resort akan menghubungi anda untuk pengesahan. Jika tarikh dipilih penuh, anda boleh menukar tarikh atau mendapat bayaran balik penuh — lihat <a href="terma.html" target="_blank" rel="noopener">Polisi Pembatalan</a>.</p>
+  <p class="note">* Kalendar menunjukkan kekosongan semasa dan tarikh anda dipegang selama 30 minit semasa bayaran. Pihak resort akan menghubungi anda untuk pengesahan. Jika berlaku pertindihan tempahan, anda boleh menukar tarikh atau mendapat bayaran balik penuh — lihat <a href="terma.html" target="_blank" rel="noopener">Polisi Pembatalan</a>.</p>
 </section>
 
 <!-- ============ CARA TEMPAH ============ -->
@@ -1491,7 +1501,7 @@
 
 <!-- Netlify Forms: rekod tempahan & keputusan bayaran (diisi oleh fungsi pelayan, bukan pelawat) -->
 <form name="tempahan" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input name="status"><input name="order_number"><input name="payment_intent"><input name="pakej"><input name="tarikh_masuk"><input name="tarikh_keluar"><input name="malam"><input name="unit"><input name="dewasa"><input name="remaja_11_17"><input name="kanak_bawah_10"><input name="sewa_khemah"><input name="jumlah_rm"><input name="nama"><input name="emel"><input name="telefon"><textarea name="catatan"></textarea><input name="mod"><input name="bot-field">
+  <input name="status"><input name="order_number"><input name="payment_intent"><input name="pakej"><input name="unit_fizikal"><input name="tarikh_masuk"><input name="tarikh_keluar"><input name="malam"><input name="unit"><input name="dewasa"><input name="remaja_11_17"><input name="kanak_bawah_10"><input name="sewa_khemah"><input name="jumlah_rm"><input name="nama"><input name="emel"><input name="telefon"><textarea name="catatan"></textarea><input name="mod"><input name="bot-field">
 </form>
 <form name="bayaran" data-netlify="true" netlify-honeypot="bot-field" hidden>
   <input name="keputusan"><input name="order_number"><input name="amount"><input name="currency"><input name="transaction_id"><input name="exchange_reference_number"><input name="payer_name"><input name="payer_email"><input name="payer_bank_name"><input name="status"><input name="status_description"><input name="mod"><input name="bot-field">
@@ -1551,6 +1561,6 @@
 </svg>
 
 <script src="js/main.js?v=20261107-2" defer></script>
-<script type="module" src="js/booking.js?v=20261107-3"></script>
+<script type="module" src="js/booking.js?v=20261107-4"></script>
 </body>
 </html>

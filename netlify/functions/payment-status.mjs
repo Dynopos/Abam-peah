@@ -1,5 +1,6 @@
 /* GET /api/payment-status?order=TR...  — semak status sebenar daripada Bayarcash (bukan percaya redirect). */
 import { config as bc, isConfigured, api, ORDER_RE, json } from '../lib/bayarcash.mjs';
+import { confirmBooking } from '../lib/slots.mjs';
 
 const LABEL = { 0: 'new', 1: 'pending', 2: 'failed', 3: 'paid', 4: 'cancelled' };
 
@@ -16,6 +17,8 @@ export default async (req) => {
 
   /* Jika ada mana-mana cubaan berjaya, tempahan dibayar; jika tidak, ambil cubaan terkini */
   const ok = list.find(t => Number(t.status) === 3);
+  /* Status disahkan terus daripada Bayarcash → pastikan tarikh ditutup walaupun callback lewat */
+  if (ok) await confirmBooking(order, { transaction_id: ok.id || ok.transaction_id }).catch(e => console.error('confirmBooking', e));
   const t = ok || list.sort((a, b) => String(b.updated_at || b.datetime).localeCompare(String(a.updated_at || a.datetime)))[0];
   return json({
     order_number: order,
