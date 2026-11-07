@@ -259,5 +259,25 @@ const BOOKING_URL = 'https://hi.jomwasap.my/naksewateratak';
     /* Jeda video jika voice note dimainkan (dan sebaliknya) */
     audio.addEventListener('play', () => vid && !vid.paused && vid.pause());
     vid && vid.addEventListener('play', () => !audio.paused && audio.pause());
+
+    /* ---------- Auto-main ----------
+       Pelayar menyekat audio auto-main sebelum pelawat berinteraksi dengan halaman.
+       1) Cuba main terus semasa halaman dibuka (berjaya pada sesetengah pelayar desktop).
+       2) Jika disekat, lagu bermula pada sentuhan / klik / kekunci PERTAMA di mana-mana.
+       Dimainkan sekali sahaja; jika pelawat jeda, ia tidak dimainkan semula secara automatik. */
+    let started = false;
+    const EVTS = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'];
+    const disarm = () => { EVTS.forEach(t => document.removeEventListener(t, onFirst, true)); vn.classList.remove('is-waiting'); };
+    audio.addEventListener('play', () => { started = true; disarm(); });
+    function onFirst(e) {
+      if (started) return disarm();
+      if (e.type === 'keydown' && e.key === 'Escape') return;
+      /* Butang voice note & video mengurus main/jeda sendiri */
+      if (e.target.closest && e.target.closest('#vn, video')) return;
+      audio.play().catch(() => {});
+    }
+    const arm = () => { if (started) return; vn.classList.add('is-waiting'); EVTS.forEach(t => document.addEventListener(t, onFirst, true)); };
+    const p = audio.play();
+    if (p && p.catch) p.catch(arm); else if (audio.paused) arm();
   }
 })();

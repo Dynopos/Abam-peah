@@ -64,7 +64,8 @@ robots.txt, sitemap.xml, llms.txt, netlify.toml, .nojekyll
 - **Galeri:** senarai dalam `js/main.js` → `const GALLERY`.
 - **Voice note:** ganti `assets/audio/voice-note.ogg` dan `voice-note.m4a` (nama sama). Kemas kini
   `data-duration="45"` pada `<audio id="vnAudio">` (tempoh dalam saat). Voice note dimainkan bila pelawat
-  menekan butang main (pelayar tidak membenarkan audio auto-main tanpa sentuhan pengguna).
+  menyentuh / klik di mana-mana pada halaman buat kali pertama (pelayar menyekat audio auto-main sebelum
+  pengguna berinteraksi). Dimainkan sekali sahaja. Untuk matikan auto-main, buang blok "Auto-main" dalam `js/main.js`.
 - **Lokasi & penilaian:** koordinat dan teks "4.5 · 107 ulasan" ada dalam `index.html` (hero dan bahagian Lokasi). Kemas kini bilangan ulasan sekali-sekala.
 - **Cache pelayar:** pautan CSS/JS dalam `index.html` ada nombor versi (`style.css?v=20261106-1`).
   Naikkan nombor itu setiap kali `css/style.css` atau `js/main.js` diubah.

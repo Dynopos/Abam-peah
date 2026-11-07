@@ -525,3 +525,6 @@ body.lock{overflow:hidden}
 .faq{grid-template-columns:minmax(0,1fr)}
 .faq a,.facts a,.coords span{overflow-wrap:anywhere}
 .faq summary,.faq p{overflow-wrap:break-word}
+
+/* Voice note menunggu sentuhan pertama (auto-main disekat pelayar) */
+.vn.is-waiting .vn__play::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--gold);animation:ring 1.6s infinite}
