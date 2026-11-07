@@ -70,7 +70,8 @@ robots.txt, sitemap.xml, llms.txt, netlify.toml, .nojekyll
 - **Cache pelayar:** pautan CSS/JS dalam `index.html` ada nombor versi (`style.css?v=20261106-1`).
   Naikkan nombor itu setiap kali `css/style.css` atau `js/main.js` diubah.
 - **Domain:** URL kanonik, Open Graph, `robots.txt` dan `sitemap.xml` menggunakan
-  `https://dynopos.github.io/Abam-peah/`. Jika guna domain sendiri, cari & ganti alamat ini.
+  `https://teratak-rimba-abam-peah.netlify.app/` (laman utama kini di Netlify). Bila beli domain sendiri, cari & ganti
+  alamat ini dalam `index.html`, `sitemap.xml`, `robots.txt` dan `llms.txt`.
 
 ## Bayaran Online (Bayarcash FPX)
 

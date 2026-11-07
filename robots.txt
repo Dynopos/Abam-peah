@@ -32,4 +32,4 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
-Sitemap: https://dynopos.github.io/Abam-peah/sitemap.xml
+Sitemap: https://teratak-rimba-abam-peah.netlify.app/sitemap.xml
