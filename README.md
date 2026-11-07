@@ -154,7 +154,15 @@ Ubah `js/pricing.mjs` **dan** kad pakej / FAQ / JSON-LD dalam `index.html`, kemu
 
 Semua laluan adalah relatif, jadi laman juga berfungsi di domain sendiri atau sub-folder.
 
-## Deploy ke Netlify
+## Deploy ke Netlify (laman utama)
+
+**Laman rasmi:** <https://teratak-rimba-abam-peah.netlify.app> — projek Netlify `teratak-rimba-abam-peah`
+(pasukan *borhanlimapos*). Netlify Forms aktif; `BAYARCASH_ENV=sandbox` sudah ditetapkan.
+
+**Deploy automatik (disyorkan):** Netlify → projek → *Project configuration → Build & deploy → Link repository* →
+GitHub → `Dynopos/Abam-peah` → branch produksi. Build command: *(kosong)*. Publish directory: `.`
+Selepas dipaut, setiap `git push` akan deploy sendiri.
+
 
 Diperlukan untuk Bayaran Online — lihat bahagian *Bayaran Online* di atas.
 
