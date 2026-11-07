@@ -120,6 +120,7 @@ const BOOKING_URL = 'https://hi.jomwasap.my/naksewateratak';
     $('#mFac').innerHTML = '';
     fac.forEach(t => { const li = document.createElement('li'); li.textContent = t; $('#mFac').appendChild(li); });
     $('#mWa').setAttribute('aria-label', 'Booking Now — ' + mName);
+    const mb = $('#mBook'); if (mb) mb.dataset.book = id;
     mList = [...d.photos, ...(d.extra || [])];
     mPoster = d.poster;
     mThumbs.innerHTML = mList.map((n, k) => `<button type="button" aria-label="Gambar ${k + 1}"><img src="${small(n)}" alt="" loading="lazy"></button>`).join('');

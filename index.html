@@ -46,7 +46,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap"></noscript>
 <link rel="preload" as="image" href="assets/img/sungai-malam-960.webp" imagesrcset="assets/img/sungai-malam-480.webp 480w, assets/img/sungai-malam-960.webp 960w, assets/img/sungai-malam-1600.webp 1600w" imagesizes="(min-width: 1024px) 60vw, 100vw">
-<link rel="stylesheet" href="css/style.css?v=20261107-1">
+<link rel="stylesheet" href="css/style.css?v=20261107-2">
 
 <script type="application/ld+json">
 {
@@ -696,7 +696,8 @@
       "https://schema.org/MobileWebPlatform"
      ]
     }
-   }
+   },
+   "paymentAccepted": "FPX (Bayarcash), Online Banking"
   },
   {
    "@type": "FAQPage",
@@ -711,6 +712,14 @@
      "acceptedAnswer": {
       "@type": "Answer",
       "text": "Tekan butang Booking Now pada pakej pilihan anda. Anda akan dibawa ke WhatsApp rasmi resort (hi.jomwasap.my/naksewateratak) untuk semak tarikh kosong dan sahkan tempahan."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Boleh bayar tempahan secara online?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Boleh. Gunakan borang Tempah & Bayar Online di laman web: pilih pakej dan tarikh, semak jumlah, kemudian bayar penuh melalui FPX (Bayarcash) daripada semua bank utama Malaysia. Resit dihantar ke emel anda. Anda juga boleh tempah melalui WhatsApp."
      }
     },
     {
@@ -824,6 +833,7 @@
     </a>
     <nav class="menu" id="menu" aria-label="Menu utama">
       <a href="#pakej">Pakej</a>
+      <a href="#tempah">Bayar Online</a>
       <a href="#aktiviti">Aktiviti</a>
       <a href="#galeri">Galeri</a>
       <a href="#video">Video</a>
@@ -951,6 +961,7 @@
             <button class="btn btn--line" type="button" data-open="ramlee">Lihat Gambar</button>
             <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="ramlee" aria-label="Booking Now — Pondok P. Ramlee">BOOKING NOW</a>
           </div>
+          <a class="pkg__pay" href="#tempah" data-book="ramlee"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> Tempah &amp; bayar online (FPX)</a>
         </div>
       </div>
     </article>
@@ -979,6 +990,7 @@
             <button class="btn btn--line" type="button" data-open="abampeah">Lihat Gambar</button>
             <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="abampeah" aria-label="Booking Now — Pondok Abam Peah">BOOKING NOW</a>
           </div>
+          <a class="pkg__pay" href="#tempah" data-book="abampeah"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> Tempah &amp; bayar online (FPX)</a>
         </div>
       </div>
     </article>
@@ -1004,6 +1016,7 @@
             <button class="btn btn--line" type="button" data-open="glamping">Lihat Gambar</button>
             <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="glamping" aria-label="Booking Now — Glamping Kak Peah">BOOKING NOW</a>
           </div>
+          <a class="pkg__pay" href="#tempah" data-book="glamping"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> Tempah &amp; bayar online (FPX)</a>
         </div>
       </div>
     </article>
@@ -1027,6 +1040,7 @@
             <button class="btn btn--line" type="button" data-open="ajis">Lihat Gambar</button>
             <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="ajis" aria-label="Booking Now — Pondok Ajis">BOOKING NOW</a>
           </div>
+          <a class="pkg__pay" href="#tempah" data-book="ajis"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> Tempah &amp; bayar online (FPX)</a>
         </div>
       </div>
     </article>
@@ -1053,6 +1067,7 @@
             <button class="btn btn--line" type="button" data-open="jambatan">Lihat Gambar</button>
             <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="jambatan" aria-label="Booking Now — Pondok Atas Jambatan">BOOKING NOW</a>
           </div>
+          <a class="pkg__pay" href="#tempah" data-book="jambatan"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> Tempah &amp; bayar online (FPX)</a>
         </div>
       </div>
     </article>
@@ -1076,6 +1091,7 @@
             <button class="btn btn--line" type="button" data-open="hajibakhil">Lihat Gambar</button>
             <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="hajibakhil" aria-label="Booking Now — Pondok Haji Bakhil">BOOKING NOW</a>
           </div>
+          <a class="pkg__pay" href="#tempah" data-book="hajibakhil"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> Tempah &amp; bayar online (FPX)</a>
         </div>
       </div>
     </article>
@@ -1099,6 +1115,7 @@
             <button class="btn btn--line" type="button" data-open="sudin">Lihat Gambar</button>
             <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="sudin" aria-label="Booking Now — Pondok Sudin">BOOKING NOW</a>
           </div>
+          <a class="pkg__pay" href="#tempah" data-book="sudin"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> Tempah &amp; bayar online (FPX)</a>
         </div>
       </div>
     </article>
@@ -1128,12 +1145,124 @@
             <button class="btn btn--line" type="button" data-open="camping">Lihat Gambar</button>
             <a class="btn btn--gold" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="camping" aria-label="Booking Now — Tapak Perkhemahan">BOOKING NOW</a>
           </div>
+          <a class="pkg__pay" href="#tempah" data-book="camping"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> Tempah &amp; bayar online (FPX)</a>
         </div>
       </div>
     </article>
   </div>
 
   <p class="note">* Harga berdasarkan bahan promosi rasmi resort. Sila sahkan harga semasa, kekosongan dan syarat tempahan melalui WhatsApp.</p>
+</section>
+
+<!-- ============ TEMPAH & BAYAR ONLINE (Bayarcash) ============ -->
+<section class="section wrap" id="tempah" aria-labelledby="tmp-h">
+  <div class="head reveal">
+    <div>
+      <span class="eyebrow">Book &amp; Pay Online</span>
+      <h2 id="tmp-h">Tempah &amp; Bayar Online</h2>
+      <p class="sub">Pilih pakej dan tarikh, semak jumlah, kemudian bayar dengan selamat melalui <strong>FPX (Bayarcash)</strong>. Atau tekan Booking Now untuk tempah melalui WhatsApp.</p>
+    </div>
+  </div>
+
+  <form class="book reveal" id="bookForm" novalidate>
+    <div class="book__main">
+      <fieldset class="book__set">
+        <legend><b>1</b> Pakej &amp; tarikh</legend>
+        <div class="book__grid">
+        <label class="fld fld--full">
+          <span>Pakej</span>
+          <select name="pakej" id="bkPakej" required>
+            <option value="ramlee">Pondok P. Ramlee — RM330/malam</option>
+            <option value="abampeah">Pondok Abam Peah — RM300/malam</option>
+            <option value="glamping">Glamping Kak Peah — RM200/malam</option>
+            <option value="ajis">Pondok Ajis — RM160/malam</option>
+            <option value="sudin">Pondok Sudin — RM160/malam</option>
+            <option value="jambatan">Pondok Atas Jambatan — RM130/malam/unit</option>
+            <option value="hajibakhil">Pondok Haji Bakhil — RM100/malam</option>
+            <option value="camping">Tapak Perkhemahan — RM10/dewasa</option>
+          </select>
+        </label>
+        <label class="fld">
+          <span>Tarikh masuk</span>
+          <input type="date" name="checkin" id="bkIn" required>
+        </label>
+        <label class="fld">
+          <span>Bilangan malam</span>
+          <input type="number" name="nights" id="bkNights" min="1" max="14" value="1" inputmode="numeric" required>
+        </label>
+        <label class="fld" id="bkUnitsF">
+          <span>Bilangan unit <small id="bkUnitsMax"></small></span>
+          <input type="number" name="units" id="bkUnits" min="1" max="1" value="1" inputmode="numeric">
+        </label>
+        <label class="fld" id="bkTentsF">
+          <span>Sewa khemah <small>RM30 / malam</small></span>
+          <input type="number" name="tents" id="bkTents" min="0" max="50" value="0" inputmode="numeric">
+        </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="book__set">
+        <legend><b>2</b> Tetamu</legend>
+        <div class="book__grid">
+        <label class="fld">
+          <span>Dewasa <small>18+</small></span>
+          <input type="number" name="adults" id="bkAdults" min="0" max="300" value="2" inputmode="numeric">
+        </label>
+        <label class="fld">
+          <span>Kanak-kanak <small>11–17 tahun</small></span>
+          <input type="number" name="teens" id="bkTeens" min="0" max="300" value="0" inputmode="numeric">
+        </label>
+        <label class="fld">
+          <span>Kanak-kanak <small>10 tahun ke bawah</small></span>
+          <input type="number" name="children" id="bkChildren" min="0" max="300" value="0" inputmode="numeric">
+        </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="book__set">
+        <legend><b>3</b> Maklumat anda</legend>
+        <div class="book__grid">
+        <label class="fld fld--full">
+          <span>Nama penuh</span>
+          <input type="text" name="name" id="bkName" autocomplete="name" maxlength="100" required>
+        </label>
+        <label class="fld">
+          <span>Emel <small>resit dihantar ke sini</small></span>
+          <input type="email" name="email" id="bkEmail" autocomplete="email" maxlength="190" required>
+        </label>
+        <label class="fld">
+          <span>No. telefon</span>
+          <input type="tel" name="phone" id="bkPhone" autocomplete="tel" inputmode="tel" placeholder="012-345 6789" maxlength="20" required>
+        </label>
+        <label class="fld fld--full">
+          <span>Catatan <small>pilihan — cth. waktu tiba, program</small></span>
+          <textarea name="notes" id="bkNotes" rows="2" maxlength="500"></textarea>
+        </label>
+        <label class="hp" aria-hidden="true">Laman web <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+      </fieldset>
+    </div>
+
+    <aside class="book__sum" aria-live="polite">
+      <span class="eyebrow">Ringkasan</span>
+      <h3 id="bkSumName">Pondok P. Ramlee</h3>
+      <p class="book__dates" id="bkSumDates">Pilih tarikh masuk</p>
+      <ul class="book__lines" id="bkLines"></ul>
+      <div class="book__total"><span>Jumlah bayaran</span><strong id="bkTotal">RM0.00</strong></div>
+      <label class="agree">
+        <input type="checkbox" id="bkAgree" required>
+        <span>Saya bersetuju dengan <a href="terma.html" target="_blank" rel="noopener">Terma, Polisi Pembatalan &amp; Polisi Privasi</a>. Maklumat saya digunakan untuk tempahan dan dikongsi dengan Bayarcash bagi memproses bayaran.</span>
+      </label>
+      <p class="book__err" id="bkErr" role="alert" hidden></p>
+      <button class="btn btn--gold btn--lg book__pay" type="submit" id="bkPay">
+        <svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> <span id="bkPayTxt">Bayar Sekarang</span>
+      </button>
+      <a class="btn btn--line book__wa" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="borang">Atau tempah melalui WhatsApp</a>
+      <p class="book__secure"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span>Bayaran selamat FPX melalui <strong>Bayarcash</strong>. Semua bank utama Malaysia.</span></p>
+      <p class="book__mode" id="bkMode" hidden></p>
+    </aside>
+  </form>
+  <p class="note">* Tempahan tertakluk kepada kekosongan. Pihak resort akan menghubungi anda untuk pengesahan. Jika tarikh dipilih penuh, anda boleh menukar tarikh atau mendapat bayaran balik penuh — lihat <a href="terma.html" target="_blank" rel="noopener">Polisi Pembatalan</a>.</p>
 </section>
 
 <!-- ============ CARA TEMPAH ============ -->
@@ -1310,6 +1439,7 @@
   <div class="head reveal"><div><span class="eyebrow">FAQ</span><h2 id="faq-h">Soalan Lazim</h2></div></div>
   <div class="faq reveal">
     <details open><summary>Bagaimana cara membuat tempahan di Teratak Rimba Abam Peah?</summary><p>Tekan butang <strong>Booking Now</strong> pada pakej pilihan anda. Anda akan dibawa ke WhatsApp rasmi resort (<a href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="faq">hi.jomwasap.my/naksewateratak</a>) untuk semak tarikh kosong dan sahkan tempahan.</p></details>
+    <details><summary>Boleh bayar tempahan secara online?</summary><p>Boleh. Gunakan borang <a href="#tempah">Tempah &amp; Bayar Online</a>: pilih pakej dan tarikh, semak jumlah, kemudian bayar penuh melalui FPX (Bayarcash) daripada semua bank utama Malaysia. Resit dihantar ke emel anda. Anda juga boleh tempah melalui WhatsApp.</p></details>
     <details><summary>Berapakah harga penginapan di Teratak Rimba Abam Peah?</summary><p>Pondok Haji Bakhil RM100, Pondok Atas Jambatan RM130, Pondok Ajis RM160, Pondok Sudin RM160, Glamping Kak Peah RM200, Pondok Abam Peah RM300 dan Pondok P. Ramlee RM330 semalam.</p></details>
     <details><summary>Berapakah caj tapak perkhemahan?</summary><p>Dewasa (18 tahun ke atas) RM10 seorang, kanak-kanak 11–17 tahun RM5 seorang, dan kanak-kanak 10 tahun ke bawah <strong>percuma</strong>. Sewa khemah RM30 sehari.</p></details>
     <details><summary>Pondok mana yang paling murah?</summary><p>Pondok Haji Bakhil pada harga RM100 semalam (1 katil queen, 1 kipas berdiri). Untuk bajet paling rendah, pilih tapak perkhemahan dari RM10 seorang.</p></details>
@@ -1343,7 +1473,7 @@
       <p>Penginapan · Glamping · Camping · Program<br>Kuala Krai, Kelantan</p>
     </div>
     <nav class="foot__nav" aria-label="Pautan footer">
-      <a href="#pakej">Pakej &amp; Harga</a><a href="#aktiviti">Aktiviti</a><a href="#galeri">Galeri</a><a href="#video">Video</a><a href="#lokasi">Lokasi</a><a href="#tentang">Tentang Kami</a><a href="#soalan">Soalan Lazim</a>
+      <a href="#pakej">Pakej &amp; Harga</a><a href="#tempah">Tempah &amp; Bayar</a><a href="terma.html">Terma &amp; Privasi</a><a href="#aktiviti">Aktiviti</a><a href="#galeri">Galeri</a><a href="#video">Video</a><a href="#lokasi">Lokasi</a><a href="#tentang">Tentang Kami</a><a href="#soalan">Soalan Lazim</a>
     </nav>
     <div class="foot__wa">
       <strong>Tempahan &amp; Pertanyaan</strong>
@@ -1358,6 +1488,15 @@
   <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp Tempahan</span>
 </a>
 <a class="totop" href="#utama" aria-label="Kembali ke atas">↑</a>
+
+
+<!-- Netlify Forms: rekod tempahan & keputusan bayaran (diisi oleh fungsi pelayan, bukan pelawat) -->
+<form name="tempahan" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="status"><input name="order_number"><input name="payment_intent"><input name="pakej"><input name="tarikh_masuk"><input name="tarikh_keluar"><input name="malam"><input name="unit"><input name="dewasa"><input name="remaja_11_17"><input name="kanak_bawah_10"><input name="sewa_khemah"><input name="jumlah_rm"><input name="nama"><input name="emel"><input name="telefon"><textarea name="catatan"></textarea><input name="mod"><input name="bot-field">
+</form>
+<form name="bayaran" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="keputusan"><input name="order_number"><input name="amount"><input name="currency"><input name="transaction_id"><input name="exchange_reference_number"><input name="payer_name"><input name="payer_email"><input name="payer_bank_name"><input name="status"><input name="status_description"><input name="mod"><input name="bot-field">
+</form>
 
 <!-- Modal pakej -->
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mName" hidden>
@@ -1378,6 +1517,7 @@
       <ul class="fac" id="mFac"></ul>
       <div class="modal__btns">
         <a class="btn btn--gold btn--lg" id="mWa" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener" data-wa="modal">BOOKING NOW ↗</a>
+        <a class="btn btn--line" id="mBook" href="#tempah">Bayar Online (FPX)</a>
         <button class="btn btn--line" type="button" id="mPoster">Lihat Poster Harga</button>
       </div>
     </div>
@@ -1407,9 +1547,11 @@
   <symbol id="i-brief" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M3 7h18v13H3zM8 7V4h8v3M3 12h18"/></symbol>
   <symbol id="i-wave" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M2 9c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/></symbol>
   <symbol id="i-fire" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M12 22a7 7 0 0 0 7-7c0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8a7 7 0 0 0 7 7Z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6 10h12v11H6zM8.5 10V7a3.5 3.5 0 0 1 7 0v3"/></symbol>
   <symbol id="i-drop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M12 3s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12Z"/></symbol>
 </svg>
 
-<script src="js/main.js?v=20261107-1" defer></script>
+<script src="js/main.js?v=20261107-2" defer></script>
+<script type="module" src="js/booking.js?v=20261107-2"></script>
 </body>
 </html>

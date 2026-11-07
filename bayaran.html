@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Status Bayaran | Teratak Rimba Abam Peah Resort</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#071a33">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond:wght@600&family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css?v=20261107-2">
+<style>
+  .pay{min-height:100dvh;display:grid;place-items:center;padding:24px 16px}
+  .pay__card{width:min(560px,100%);padding:30px 22px;border-radius:var(--r-xl);border:1px solid var(--line-gold);background:radial-gradient(ellipse at 100% 0%,rgba(212,173,95,.18),transparent 60%),linear-gradient(150deg,#10294a,#06162c);box-shadow:var(--shadow);text-align:center}
+  .pay__logo{width:150px;margin:0 auto 10px;height:auto}
+  .pay__icon{width:74px;height:74px;margin:8px auto 6px;border-radius:50%;display:grid;place-items:center;font-size:36px;font-weight:800}
+  .pay--paid .pay__icon{background:rgba(37,211,102,.15);border:2px solid #25d366;color:#4be38a}
+  .pay--failed .pay__icon,.pay--cancelled .pay__icon{background:rgba(220,80,80,.14);border:2px solid #f07878;color:#ffb3b3}
+  .pay--pending .pay__icon{border:2px solid var(--gold);color:var(--gold-hi);animation:pulse 1.6s infinite}
+  .pay h1{font-size:clamp(30px,7vw,40px);margin:10px 0 6px}
+  .pay__msg{color:var(--silver);margin:0 0 18px}
+  .pay__box{text-align:left;margin:0 0 18px;padding:14px 16px;border-radius:var(--r-md);border:1px solid var(--line);background:rgba(4,13,28,.45);display:grid;gap:7px;font-size:13.5px}
+  .pay__box div{display:flex;justify-content:space-between;gap:14px}
+  .pay__box span{color:var(--muted)}
+  .pay__box b{color:var(--silver-hi);text-align:right;overflow-wrap:anywhere}
+  .pay__box .tot b{font:700 24px/1 var(--f-head);color:var(--gold-hi)}
+  .pay__btns{display:grid;gap:10px}
+  .pay__note{margin:16px 0 0;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="pay pay--pending" id="pay">
+  <div class="pay__card">
+    <img class="pay__logo" src="assets/img/logo-320.webp" width="320" height="248" alt="Teratak Rimba Abam Peah Resort">
+    <div class="pay__icon" id="pIcon" aria-hidden="true">…</div>
+    <h1 id="pTitle">Menyemak bayaran…</h1>
+    <p class="pay__msg" id="pMsg">Sila tunggu sebentar, kami sedang mengesahkan bayaran anda dengan Bayarcash.</p>
+    <div class="pay__box" id="pBox" hidden></div>
+    <div class="pay__btns">
+      <a class="btn btn--gold btn--lg" id="pWa" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener">WhatsApp Resort</a>
+      <a class="btn btn--line" id="pRetry" href="./#tempah" hidden>Cuba Bayar Semula</a>
+      <a class="btn btn--line" href="./">Kembali ke Laman Utama</a>
+    </div>
+    <p class="pay__note" id="pNote">Simpan No. Tempahan anda. Resit bayaran juga dihantar ke emel anda oleh Bayarcash.</p>
+  </div>
+</main>
+<script type="module">
+  const $ = s => document.querySelector(s);
+  const qs = new URLSearchParams(location.search);
+  let saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem('tr-booking') || '{}'); } catch {}
+  const order = (qs.get('order_number') || qs.get('order') || saved.order || '').toUpperCase();
+  const rm = n => 'RM' + Number(n).toLocaleString('ms-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const fmt = ymd => ymd ? new Date(ymd + 'T00:00:00').toLocaleDateString('ms-MY', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }) : '';
+
+  function box(st) {
+    const rows = [['No. Tempahan', order]];
+    if (saved.order === order) {
+      rows.push(['Pakej', saved.name], ['Tarikh', `${fmt(saved.checkin)} → ${fmt(saved.checkout)} (${saved.nights} malam)`]);
+    }
+    if (st && st.bank) rows.push(['Bank', st.bank]);
+    if (st && st.reference) rows.push(['Rujukan FPX', st.reference]);
+    const amt = st && st.amount ? st.amount : saved.order === order ? saved.total : null;
+    if (amt != null) rows.push(['Jumlah', rm(amt)]);
+    const el = $('#pBox'); el.innerHTML = ''; el.hidden = false;
+    rows.forEach(([k, v], i) => {
+      const d = document.createElement('div'); if (k === 'Jumlah') d.className = 'tot';
+      const a = document.createElement('span'), b = document.createElement('b');
+      a.textContent = k; b.textContent = v; d.append(a, b); el.appendChild(d);
+    });
+  }
+  function show(state, st) {
+    const p = $('#pay'); p.className = 'pay pay--' + state;
+    const T = {
+      paid: ['✓', 'Bayaran Berjaya', 'Terima kasih! Tempahan anda telah dibayar. Pihak resort akan menghubungi anda untuk pengesahan. Hantar No. Tempahan anda melalui WhatsApp untuk urusan lebih pantas.'],
+      failed: ['✕', 'Bayaran Tidak Berjaya', 'Bayaran anda tidak berjaya dan tiada caj dikenakan. Sila cuba semula atau tempah melalui WhatsApp.'],
+      cancelled: ['✕', 'Bayaran Dibatalkan', 'Bayaran dibatalkan. Anda boleh cuba semula bila-bila masa.'],
+      pending: ['…', 'Bayaran Sedang Diproses', 'Bayaran anda masih diproses oleh bank. Halaman ini akan dikemas kini secara automatik.'],
+      unknown: ['?', 'Status Tidak Dapat Disemak', 'Kami tidak dapat menyemak status sekarang. Jika akaun anda telah ditolak, hantar No. Tempahan kepada kami melalui WhatsApp.']
+    }[state] || [];
+    $('#pIcon').textContent = T[0]; $('#pTitle').textContent = T[1]; $('#pMsg').textContent = T[2];
+    $('#pRetry').hidden = !['failed', 'cancelled'].includes(state);
+    $('#pWa').textContent = state === 'paid' ? 'Hantar No. Tempahan di WhatsApp' : 'WhatsApp Resort';
+    if (order) box(st);
+  }
+
+  async function check(tries = 0) {
+    if (!order) return show('unknown');
+    try {
+      const r = await fetch('/api/payment-status?order=' + encodeURIComponent(order), { headers: { Accept: 'application/json' } });
+      const st = await r.json();
+      if (!r.ok) throw new Error(st.error);
+      if (['paid', 'failed', 'cancelled'].includes(st.state)) return show(st.state, st);
+      show('pending', st);
+      if (tries < 10) setTimeout(() => check(tries + 1), 4000);
+    } catch { show('unknown'); }
+  }
+  check();
+</script>
+</body>
+</html>

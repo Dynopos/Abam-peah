@@ -1,14 +1,36 @@
-# Netlify: laman statik, tiada proses build.
+# Netlify: laman statik + Netlify Functions (Bayarcash). Tiada proses build.
 [build]
   publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Rahsia Bayarcash ditetapkan di Netlify → Site configuration → Environment variables:
+#   BAYARCASH_PAT, BAYARCASH_SECRET, BAYARCASH_PORTAL_KEY, BAYARCASH_ENV (sandbox | production)
+# JANGAN letak rahsia dalam fail ini.
 
 [[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/bayaran.html"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex"
+
+# Sumber kod pelayan tidak perlu diterbitkan sebagai fail statik
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true

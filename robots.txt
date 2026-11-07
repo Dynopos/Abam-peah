@@ -1,6 +1,8 @@
 # Teratak Rimba Abam Peah Resort — semua enjin carian & enjin AI dialu-alukan
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /bayaran.html
 
 # Enjin carian AI / LLM (GEO)
 User-agent: GPTBot
