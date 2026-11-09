@@ -6,7 +6,7 @@
 import { timingSafeEqual, createHash } from 'node:crypto';
 import { addDays, todayMY } from '../../js/pricing.mjs';
 import { calendar, listOrders, setSlots, isDate, isUnit } from '../lib/slots.mjs';
-import { json } from '../lib/bayarcash.mjs';
+import { json } from '../lib/common.mjs';
 
 const env = k => (globalThis.Netlify?.env?.get?.(k) ?? process.env[k] ?? '').trim();
 const h = v => createHash('sha256').update(String(v)).digest();

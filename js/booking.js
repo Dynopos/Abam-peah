@@ -1,4 +1,4 @@
-/* Teratak Rimba Abam Peah — borang Tempah & Bayar Online (Bayarcash FPX) */
+/* Teratak Rimba Abam Peah — borang Tempah & Bayar Online (CHIP Collect) */
 import { PAKEJ, UNITS, quote, todayMY, addDays, nightDates, MAX_NIGHTS } from './pricing.mjs?v=20261107-4';
 
 const WA = 'https://hi.jomwasap.my/naksewateratak';
@@ -152,12 +152,12 @@ function init() {
     setTimeout(() => f.checkin.focus({ preventScroll: true }), 600);
   });
 
-  /* Semak sama ada bayaran dalam talian aktif (Netlify Functions + kunci Bayarcash) */
+  /* Semak sama ada bayaran dalam talian aktif (Netlify Functions + kunci CHIP) */
   fetch('/api/config', { headers: { Accept: 'application/json' } })
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(c => {
       online = !!c.enabled;
-      if (online && c.mode !== 'production') { modeEl.hidden = false; modeEl.textContent = 'Mod ujian (sandbox) — tiada wang sebenar ditolak.'; }
+      if (online && c.mode === 'test') { modeEl.hidden = false; modeEl.textContent = 'Mod ujian — guna kunci ujian CHIP, tiada wang sebenar ditolak.'; }
       if (!online) offline();
     })
     .catch(() => { online = false; offline(); });
@@ -181,7 +181,7 @@ function init() {
     if (f.phone.value.replace(/\D/g, '').length < 9) { f.phone.focus(); return showErr('Sila masukkan nombor telefon yang sah.'); }
     if (!f.agree.checked) { f.agree.focus(); return showErr('Sila tandakan persetujuan Terma & Polisi.'); }
 
-    pay.disabled = true; payTxt.textContent = 'Menyambung ke Bayarcash…';
+    pay.disabled = true; payTxt.textContent = 'Menyambung ke CHIP…';
     try {
       const res = await fetch('/api/create-payment', {
         method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },

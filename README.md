@@ -73,29 +73,34 @@ robots.txt, sitemap.xml, llms.txt, netlify.toml, .nojekyll
   `https://teratakrimbaabampeah.my/` (domain rasmi, dihoskan di Netlify). Jika domain bertukar, cari & ganti
   alamat ini dalam `index.html`, `sitemap.xml`, `robots.txt` dan `llms.txt`.
 
-## Bayaran Online (Bayarcash FPX)
+## Bayaran Online (CHIP Collect)
 
 Borang **Tempah & Bayar Online** (`#tempah`) — untuk **pondok & glamping** — membolehkan pelanggan memilih pakej, tarikh, bilangan malam / unit / tetamu
-dan sewa khemah, kemudian membuat **bayaran penuh** melalui FPX (Bayarcash v3).
+dan sewa khemah, kemudian membuat **bayaran penuh** melalui **CHIP** (chip-in.asia): FPX, DuitNow QR, kad atau e-wallet
+(mengikut kaedah yang aktif dalam akaun CHIP).
 
 ### Cara ia berfungsi
 1. Pelanggan isi borang → `POST /api/create-payment` (Netlify Function).
 2. Pelayan **mengira semula jumlah** daripada `js/pricing.mjs` (harga daripada pelayar tidak dipercayai), mencipta
-   no. tempahan `TRyymmddXXXXXX`, menandatangani permintaan dengan checksum HMAC SHA256, dan mencipta *payment intent*.
-3. Pelanggan dibawa ke halaman bayaran Bayarcash / FPX.
-4. Bayarcash menghantar callback ke `/api/bayarcash-callback` — **checksum disahkan** sebelum direkod.
-5. Pelanggan kembali ke `bayaran.html`, yang menyemak status sebenar melalui `/api/payment-status` (bukan percaya redirect).
+   no. tempahan `TRyymmddXXXXXX`, **memegang tarikh 30 minit**, kemudian mencipta *Purchase* CHIP (`POST /purchases/`,
+   jumlah dalam **sen**, `reference` = no. tempahan, `due_strict` = tamat serentak dengan pegangan tarikh).
+3. Pelanggan dibawa ke `checkout_url` CHIP untuk membayar.
+4. CHIP menghantar `success_callback` ke `/api/chip-callback` — **tandatangan `X-Signature` (RSA-SHA256) disahkan**
+   dengan kunci awam CHIP sebelum tarikh ditutup.
+5. Pelanggan kembali ke `bayaran.html`, yang menyemak status sebenar melalui `/api/payment-status` (`GET /purchases/{id}/`).
 6. Setiap tempahan & keputusan bayaran direkod dalam **Netlify Forms** (`tempahan` dan `bayaran`) — boleh dihantar ke emel pemilik.
+   Resit bayaran dihantar kepada pelanggan oleh CHIP (`send_receipt`).
 
 | Fail | Fungsi |
 |---|---|
-| `js/pricing.mjs` | Jadual harga & pengiraan — **satu sumber** untuk borang dan pelayan |
-| `js/booking.js` | Borang, ringkasan harga, hantar ke pelayan |
-| `netlify/functions/create-payment.mjs` | Cipta payment intent Bayarcash |
-| `netlify/functions/bayarcash-callback.mjs` | Terima & sahkan callback |
-| `netlify/functions/payment-status.mjs` | Semak status transaksi |
+| `js/pricing.mjs` | Jadual harga, unit & pengiraan — **satu sumber** untuk borang dan pelayan |
+| `js/booking.js` | Borang, kalendar kekosongan, ringkasan harga, hantar ke pelayan |
+| `netlify/functions/create-payment.mjs` | Pegang tarikh & cipta Purchase CHIP |
+| `netlify/functions/chip-callback.mjs` | Terima & sahkan `success_callback` CHIP |
+| `netlify/functions/payment-status.mjs` | Semak status Purchase |
 | `netlify/functions/config.mjs` | Beritahu borang sama ada bayaran online aktif |
-| `netlify/lib/bayarcash.mjs` | Checksum, panggilan API, no. tempahan |
+| `netlify/lib/chip.mjs` | Panggilan API CHIP, kunci awam & pengesahan tandatangan |
+| `netlify/lib/common.mjs` | No. tempahan, nombor telefon, Netlify Forms |
 | `netlify/lib/slots.mjs` | Kekosongan: pegang / sahkan / lepaskan tarikh (Netlify Blobs) |
 | `netlify/functions/availability.mjs` | Kekosongan awam untuk kalendar borang |
 | `netlify/functions/admin.mjs` | API halaman admin (dilindungi `ADMIN_PASSWORD`) |
@@ -104,24 +109,23 @@ dan sewa khemah, kemudian membuat **bayaran penuh** melalui FPX (Bayarcash v3).
 | `terma.html` | Terma, Polisi Pembatalan & Bayaran Balik, Polisi Privasi (PDPA) |
 
 ### Mengaktifkan bayaran (perlu Netlify — GitHub Pages tidak boleh menjalankan fungsi pelayan)
-1. **Netlify** → *Add new site → Import an existing project → GitHub* → pilih repo `Dynopos/Abam-peah` dan branch ini.
-   Build command: *(kosong)*. Publish directory: `.`
-2. **Bayarcash console** (mula dengan sandbox: `console.bayarcash-sandbox.com`):
-   salin **Personal Access Token**, **API Secret Key** (halaman profil portal) dan **Portal Key**.
-3. **Netlify → Site configuration → Environment variables** → tambah (tanda sebagai *secret*):
+1. **Portal CHIP** (<https://portal.chip-in.asia>) → *Collect → Developers*:
+   - **API keys** → salin **Secret key** (mula dengan kunci **ujian / test**);
+   - **Brands** → salin **Brand ID**.
+2. **Netlify → teratak-rimba-abam-peah → Project configuration → Environment variables** → tambah (tanda *secret* untuk kunci):
 
    | Nama | Nilai |
    |---|---|
-   | `BAYARCASH_PAT` | Personal Access Token |
-   | `BAYARCASH_SECRET` | API Secret Key |
-   | `BAYARCASH_PORTAL_KEY` | Portal Key |
-   | `BAYARCASH_ENV` | `sandbox` (ujian) → tukar ke `production` bila sedia |
-   | `BAYARCASH_CHANNEL` | *(pilihan)* `1` = FPX (lalai) |
+   | `CHIP_SECRET_KEY` | Secret API key (ujian dahulu, kemudian live) |
+   | `CHIP_BRAND_ID` | Brand ID |
+   | `CHIP_MODE` | `test` semasa menguji (papar notis "Mod ujian") — **padam** bila guna kunci live |
+   | `CHIP_METHODS` | *(pilihan)* hadkan kaedah, cth. `fpx,duitnow_qr,visa,mastercard` |
    | `ADMIN_PASSWORD` | Kata laluan halaman `/admin.html` (min. 8 aksara) |
 
-4. *Deploys → Trigger deploy*. Borang akan memaparkan "Mod ujian (sandbox)" sehingga `BAYARCASH_ENV=production`.
-5. **Netlify → Forms → Form notifications** → tambah emel pemilik untuk borang `tempahan` dan `bayaran`.
-6. Uji sekurang-kurangnya satu bayaran sandbox berjaya dan satu gagal sebelum tukar ke production.
+3. *Deploys → Trigger deploy*.
+4. **Netlify → Forms → Form notifications** → tambah emel pemilik untuk borang `tempahan` dan `bayaran`.
+5. Uji dengan kunci ujian: kad berjaya `4444 3333 2222 1111` (CVC `123`, tarikh luput akan datang); tukar CVC untuk
+   menguji kegagalan. Kemudian tukar `CHIP_SECRET_KEY` kepada kunci **live**, padam `CHIP_MODE`, dan deploy semula.
 
 Tanpa kunci (atau di GitHub Pages), borang secara automatik bertukar kepada butang **Tempah melalui WhatsApp**.
 
@@ -181,7 +185,7 @@ Semua laluan adalah relatif, jadi laman juga berfungsi di domain sendiri atau su
 ## Deploy ke Netlify (laman utama)
 
 **Laman rasmi:** <https://teratakrimbaabampeah.my> (alamat Netlify: <https://teratak-rimba-abam-peah.netlify.app>) — projek Netlify `teratak-rimba-abam-peah`
-(pasukan *borhanlimapos*). Netlify Forms aktif; `BAYARCASH_ENV=sandbox` sudah ditetapkan.
+(pasukan *borhanlimapos*). Netlify Forms aktif.
 
 **Domain `teratakrimbaabampeah.my` → Netlify** (bayaran online hanya berfungsi di Netlify, bukan GitHub Pages):
 1. Netlify → projek → *Domain management → Add a domain* → `teratakrimbaabampeah.my` (tambah juga `www`).

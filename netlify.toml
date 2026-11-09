@@ -1,4 +1,4 @@
-# Netlify: laman statik + Netlify Functions (Bayarcash). Tiada proses build.
+# Netlify: laman statik + Netlify Functions (CHIP Collect, kekosongan). Tiada proses build.
 [build]
   publish = "."
 
@@ -6,8 +6,8 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# Rahsia Bayarcash ditetapkan di Netlify → Site configuration → Environment variables:
-#   BAYARCASH_PAT, BAYARCASH_SECRET, BAYARCASH_PORTAL_KEY, BAYARCASH_ENV (sandbox | production)
+# Rahsia CHIP ditetapkan di Netlify → Project configuration → Environment variables:
+#   CHIP_SECRET_KEY, CHIP_BRAND_ID, CHIP_MODE (pilihan: "test")
 #   ADMIN_PASSWORD (halaman /admin.html — sekurang-kurangnya 8 aksara)
 # JANGAN letak rahsia dalam fail ini.
 

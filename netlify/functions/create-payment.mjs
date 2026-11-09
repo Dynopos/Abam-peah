@@ -1,14 +1,16 @@
-/* POST /api/create-payment — cipta payment intent Bayarcash v3 dan pulangkan URL bayaran.
+/* POST /api/create-payment — pegang tarikh, cipta Purchase CHIP dan pulangkan checkout_url.
    Jumlah SENTIASA dikira semula di pelayan daripada js/pricing.mjs. */
 import { quote } from '../../js/pricing.mjs';
-import { holdBooking, releaseBooking } from '../lib/slots.mjs';
-import { config as bc, isConfigured, api, intentChecksum, orderNumber, recordForm, siteUrl, json, normalisePhone } from '../lib/bayarcash.mjs';
+import { holdBooking, releaseBooking, attachToOrder, HOLD_MS } from '../lib/slots.mjs';
+import { config as chip, isConfigured, api, sen } from '../lib/chip.mjs';
+import { orderNumber, recordForm, siteUrl, json, normalisePhone } from '../lib/common.mjs';
 
 const clean = (v, max) => String(v ?? '').replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max);
 const EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
+
 export default async (req) => {
   if (req.method !== 'POST') return json({ error: 'Kaedah tidak dibenarkan.' }, 405);
-  const c = bc();
+  const c = chip();
   if (!isConfigured(c)) return json({ error: 'Bayaran dalam talian belum diaktifkan. Sila tempah melalui WhatsApp.' }, 503);
 
   let body;
@@ -30,7 +32,7 @@ export default async (req) => {
   const order = orderNumber();
   const base = siteUrl(req).replace(/\/$/, '');
 
-  /* Pegang tarikh (atomik) sebelum bayaran — tolak jika sudah ditempah */
+  /* 1) Pegang tarikh (atomik) sebelum bayaran — tolak jika sudah ditempah */
   let hold;
   try {
     hold = await holdBooking({
@@ -41,36 +43,48 @@ export default async (req) => {
     console.error('holdBooking', e);
     return json({ error: 'Kekosongan tidak dapat disemak sekarang. Sila cuba lagi atau tempah melalui WhatsApp.' }, 503);
   }
-  if (!hold.ok) {
-    return json({ error: `Maaf, ${q.name} sudah ditempah pada sebahagian tarikh dipilih. Sila pilih tarikh lain.`, code: 'unavailable' }, 409);
-  }
-  const payload = {
-    payment_channel: c.channel,
-    portal_key: c.portalKey,
-    order_number: order,
-    amount: q.total,
-    payer_name: name,
-    payer_email: email,
-    payer_telephone_number: Number(phone),
-    return_url: `${base}/bayaran.html`,
-    callback_url: `${base}/api/bayarcash-callback`
-  };
-  payload.checksum = intentChecksum(payload, c.secret);
+  if (!hold.ok) return json({ error: `Maaf, ${q.name} sudah ditempah pada sebahagian tarikh dipilih. Sila pilih tarikh lain.`, code: 'unavailable' }, 409);
 
-  const r = await api(c, '/payment-intents', { method: 'POST', body: payload });
-  if (!r.ok || !r.data?.url) {
-    console.error('Bayarcash payment-intent gagal', r.status, JSON.stringify(r.data).slice(0, 500));
+  /* 2) Cipta Purchase CHIP. Tamat serentak dengan pegangan tarikh (due_strict) supaya tiada bayaran selepas tarikh dilepaskan. */
+  const back = `${base}/bayaran.html?order=${order}`;
+  const payload = {
+    brand_id: c.brandId,
+    reference: order,
+    client: { email, full_name: name, phone: '+' + phone },
+    purchase: {
+      currency: 'MYR',
+      language: 'ms',
+      timezone: 'Asia/Kuala_Lumpur',
+      due_strict: true,
+      notes: `${q.name} · ${q.checkin} → ${q.checkout} (${q.nights} malam) · Unit: ${hold.units.join(', ')}`.slice(0, 1000),
+      products: q.lines.filter(l => l.amount > 0).map(l => ({ name: l.label.slice(0, 256), price: sen(l.amount), quantity: '1' }))
+    },
+    due: Math.floor((Date.now() + HOLD_MS - 60e3) / 1000),
+    success_callback: `${base}/api/chip-callback`,
+    success_redirect: back,
+    failure_redirect: `${back}&r=gagal`,
+    cancel_redirect: `${base}/#tempah`,
+    send_receipt: true,
+    creator_agent: 'TeratakRimba/1.0',
+    platform: 'web'
+  };
+  if (c.methods.length) payload.payment_method_whitelist = c.methods;
+
+  const r = await api(c, '/purchases/', { method: 'POST', body: payload });
+  if (!r.ok || !r.data?.checkout_url) {
+    console.error('CHIP purchase gagal', r.status, JSON.stringify(r.data).slice(0, 600));
     await releaseBooking(order, 'intent-failed').catch(() => {});
     return json({ error: 'Maaf, sistem bayaran tidak dapat dihubungi. Sila cuba lagi atau tempah melalui WhatsApp.' }, 502);
   }
+  await attachToOrder(order, { purchase_id: r.data.id, is_test: !!r.data.is_test }).catch(e => console.error('attachToOrder', e));
 
   await recordForm(base, 'tempahan', {
-    status: 'MENUNGGU BAYARAN', order_number: order, payment_intent: r.data.id || '',
+    status: 'MENUNGGU BAYARAN', order_number: order, purchase_id: r.data.id || '',
     pakej: q.name, unit_fizikal: hold.units.join(', '), tarikh_masuk: q.checkin, tarikh_keluar: q.checkout, malam: q.nights, unit: q.units,
     dewasa: q.adults, remaja_11_17: q.teens, kanak_bawah_10: q.children, sewa_khemah: q.tents,
-    jumlah_rm: q.total.toFixed(2), nama: name, emel: email, telefon: phone, catatan: notes, mod: c.mode
+    jumlah_rm: q.total.toFixed(2), nama: name, emel: email, telefon: phone, catatan: notes, mod: r.data.is_test ? 'test' : 'live'
   });
 
-  return json({ url: r.data.url, order_number: order, total: q.total, mode: c.mode });
+  return json({ url: r.data.checkout_url, order_number: order, total: q.total, mode: r.data.is_test ? 'test' : 'live' });
 };
 export const config = { path: '/api/create-payment' };

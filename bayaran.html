@@ -36,14 +36,14 @@
     <img class="pay__logo" src="assets/img/logo-320.webp" width="320" height="248" alt="Teratak Rimba Abam Peah Resort">
     <div class="pay__icon" id="pIcon" aria-hidden="true">…</div>
     <h1 id="pTitle">Menyemak bayaran…</h1>
-    <p class="pay__msg" id="pMsg">Sila tunggu sebentar, kami sedang mengesahkan bayaran anda dengan Bayarcash.</p>
+    <p class="pay__msg" id="pMsg">Sila tunggu sebentar, kami sedang mengesahkan bayaran anda dengan CHIP.</p>
     <div class="pay__box" id="pBox" hidden></div>
     <div class="pay__btns">
       <a class="btn btn--gold btn--lg" id="pWa" href="https://hi.jomwasap.my/naksewateratak" target="_blank" rel="noopener">WhatsApp Resort</a>
       <a class="btn btn--line" id="pRetry" href="./#tempah" hidden>Cuba Bayar Semula</a>
       <a class="btn btn--line" href="./">Kembali ke Laman Utama</a>
     </div>
-    <p class="pay__note" id="pNote">Simpan No. Tempahan anda. Resit bayaran juga dihantar ke emel anda oleh Bayarcash.</p>
+    <p class="pay__note" id="pNote">Simpan No. Tempahan anda. Resit bayaran juga dihantar ke emel anda oleh CHIP.</p>
   </div>
 </main>
 <script type="module">
@@ -60,8 +60,8 @@
     if (saved.order === order) {
       rows.push(['Pakej', saved.name], ['Tarikh', `${fmt(saved.checkin)} → ${fmt(saved.checkout)} (${saved.nights} malam)`]);
     }
-    if (st && st.bank) rows.push(['Bank', st.bank]);
-    if (st && st.reference) rows.push(['Rujukan FPX', st.reference]);
+    if (st && st.method) rows.push(['Kaedah', String(st.method).replace(/_/g, ' ').toUpperCase()]);
+    if (st && st.reference) rows.push(['ID Transaksi', st.reference]);
     const amt = st && st.amount ? st.amount : saved.order === order ? saved.total : null;
     if (amt != null) rows.push(['Jumlah', rm(amt)]);
     const el = $('#pBox'); el.innerHTML = ''; el.hidden = false;
@@ -76,7 +76,8 @@
     const T = {
       paid: ['✓', 'Bayaran Berjaya', 'Terima kasih! Tempahan anda telah dibayar. Pihak resort akan menghubungi anda untuk pengesahan. Hantar No. Tempahan anda melalui WhatsApp untuk urusan lebih pantas.'],
       failed: ['✕', 'Bayaran Tidak Berjaya', 'Bayaran anda tidak berjaya dan tiada caj dikenakan. Sila cuba semula atau tempah melalui WhatsApp.'],
-      cancelled: ['✕', 'Bayaran Dibatalkan', 'Bayaran dibatalkan. Anda boleh cuba semula bila-bila masa.'],
+      cancelled: ['✕', 'Bayaran Dibatalkan / Tamat Tempoh', 'Bayaran dibatalkan atau tamat tempoh (30 minit) dan tarikh telah dilepaskan. Anda boleh cuba semula.'],
+      refunded: ['↺', 'Bayaran Dikembalikan', 'Bayaran ini telah dikembalikan (refund). Hubungi kami melalui WhatsApp untuk sebarang pertanyaan.'],
       pending: ['…', 'Bayaran Sedang Diproses', 'Bayaran anda masih diproses oleh bank. Halaman ini akan dikemas kini secara automatik.'],
       unknown: ['?', 'Status Tidak Dapat Disemak', 'Kami tidak dapat menyemak status sekarang. Jika akaun anda telah ditolak, hantar No. Tempahan kepada kami melalui WhatsApp.']
     }[state] || [];
@@ -92,7 +93,8 @@
       const r = await fetch('/api/payment-status?order=' + encodeURIComponent(order), { headers: { Accept: 'application/json' } });
       const st = await r.json();
       if (!r.ok) throw new Error(st.error);
-      if (['paid', 'failed', 'cancelled'].includes(st.state)) return show(st.state, st);
+      if (['paid', 'cancelled', 'refunded'].includes(st.state)) return show(st.state, st);
+      if (st.state === 'failed' || (qs.get('r') === 'gagal' && tries >= 2)) return show('failed', st);
       show('pending', st);
       if (tries < 10) setTimeout(() => check(tries + 1), 4000);
     } catch { show('unknown'); }

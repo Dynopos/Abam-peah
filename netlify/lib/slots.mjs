@@ -95,6 +95,13 @@ export async function holdBooking({ order, pakej, checkin, nights, units: want =
 
 export const getOrder = order => store().get(orderKey(order), { type: 'json' });
 
+/* Tambah maklumat (cth. purchase_id CHIP) pada rekod tempahan */
+export async function attachToOrder(order, extra) {
+  const s = store();
+  const rec = await getOrder(order);
+  if (rec) await s.setJSON(orderKey(order), { ...rec, ...extra });
+}
+
 /* Bayaran berjaya → tukar hold kepada booked (idempoten). Pulangkan senarai konflik (jika ada). */
 export async function confirmBooking(order, extra = {}) {
   const s = store();

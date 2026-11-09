@@ -2,7 +2,7 @@
    Pulangkan bilangan unit yang sibuk bagi setiap tarikh (malam). Tiada maklumat peribadi. */
 import { UNITS, todayMY } from '../../js/pricing.mjs';
 import { availability, isDate } from '../lib/slots.mjs';
-import { json } from '../lib/bayarcash.mjs';
+import { json } from '../lib/common.mjs';
 
 export default async (req) => {
   const q = new URL(req.url).searchParams;
