@@ -70,7 +70,7 @@ robots.txt, sitemap.xml, llms.txt, netlify.toml, .nojekyll
 - **Cache pelayar:** pautan CSS/JS dalam `index.html` ada nombor versi (`style.css?v=20261106-1`).
   Naikkan nombor itu setiap kali `css/style.css` atau `js/main.js` diubah.
 - **Domain:** URL kanonik, Open Graph, `robots.txt` dan `sitemap.xml` menggunakan
-  `https://teratak-rimba-abam-peah.netlify.app/` (laman utama kini di Netlify). Bila beli domain sendiri, cari & ganti
+  `https://teratakrimbaabampeah.my/` (domain rasmi, dihoskan di Netlify). Jika domain bertukar, cari & ganti
   alamat ini dalam `index.html`, `sitemap.xml`, `robots.txt` dan `llms.txt`.
 
 ## Bayaran Online (Bayarcash FPX)
@@ -180,8 +180,15 @@ Semua laluan adalah relatif, jadi laman juga berfungsi di domain sendiri atau su
 
 ## Deploy ke Netlify (laman utama)
 
-**Laman rasmi:** <https://teratak-rimba-abam-peah.netlify.app> — projek Netlify `teratak-rimba-abam-peah`
+**Laman rasmi:** <https://teratakrimbaabampeah.my> (alamat Netlify: <https://teratak-rimba-abam-peah.netlify.app>) — projek Netlify `teratak-rimba-abam-peah`
 (pasukan *borhanlimapos*). Netlify Forms aktif; `BAYARCASH_ENV=sandbox` sudah ditetapkan.
+
+**Domain `teratakrimbaabampeah.my` → Netlify** (bayaran online hanya berfungsi di Netlify, bukan GitHub Pages):
+1. Netlify → projek → *Domain management → Add a domain* → `teratakrimbaabampeah.my` (tambah juga `www`).
+2. Di panel DNS pendaftar domain: rekod **A** `@` → `75.2.60.5`; rekod **CNAME** `www` → `teratak-rimba-abam-peah.netlify.app`.
+   Padam rekod A GitHub Pages (`185.199.108.153`, `.109.153`, `.110.153`, `.111.153`).
+3. GitHub → repo → *Settings → Pages* → buang custom domain / matikan Pages.
+4. HTTPS dikeluarkan automatik oleh Netlify selepas DNS bertukar (biasanya beberapa minit hingga 24 jam).
 
 **Deploy automatik (disyorkan):** Netlify → projek → *Project configuration → Build & deploy → Link repository* →
 GitHub → `Dynopos/Abam-peah` → branch produksi. Build command: *(kosong)*. Publish directory: `.`

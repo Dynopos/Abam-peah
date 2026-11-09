@@ -33,4 +33,4 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
-Sitemap: https://teratak-rimba-abam-peah.netlify.app/sitemap.xml
+Sitemap: https://teratakrimbaabampeah.my/sitemap.xml
