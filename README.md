@@ -174,6 +174,14 @@ Ubah `js/pricing.mjs` **dan** kad pakej / FAQ / JSON-LD dalam `index.html`, kemu
 3. Letak pautan laman web ini dalam **Google Business Profile** "Teratak Rimba Abam Peah".
 4. Pastikan nama, lokasi dan pautan WhatsApp sama di Facebook, TikTok, Instagram dan direktori pelancongan.
 
+## Skill Claude: `premium-bento-website`
+
+Folder `.claude/skills/premium-bento-website/` mengandungi skill untuk membina laman seperti ini semula (atau untuk
+perniagaan lain): templat starter (HTML/CSS/JS dengan voice note & animasi), add-on Tempah & Bayar (CHIP + kalendar +
+admin), skrip `optimize_media.py` & `check_layout.js`, serta panduan reka bentuk, SEO/GEO, deploy dan pengajaran.
+Claude Code memuatkannya secara automatik dalam repo ini. Untuk claude.ai, pasang fail `.claude/premium-bento-website.skill`.
+Folder ini tidak diterbitkan (`/.claude/*` → 404 dalam `netlify.toml`).
+
 ## Deploy ke GitHub Pages
 
 1. Gabungkan (merge) branch ini ke `main`.

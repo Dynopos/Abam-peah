@@ -38,6 +38,12 @@
 
 # Sumber kod pelayan tidak perlu diterbitkan sebagai fail statik
 [[redirects]]
+  from = "/.claude/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
   from = "/netlify/*"
   to = "/404.html"
   status = 404
